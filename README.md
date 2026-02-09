@@ -1,32 +1,140 @@
-# Goal-Driven Skills Repository
+# My Skills
 
-A goal-driven, test-validated skills architecture inspired by Jira user stories.
+> Goal-driven, test-validated skills for AI agents — inspired by agile user stories.
 
-## Core Concept
+Define what you want to achieve (goal), how to measure success (acceptance criteria), and what features make it work. AI agents read the structure and execute accordingly.
 
-```
-Goal → Acceptance Criteria → Features (required + optional) → Test Scenarios → Expected Results
-```
+## Quick Start
 
-Everything is a skill. Everything within a skill is a feature. No separate `scripts/`, `conditions/`, or `conventions/` directories.
+**1. Set environment variable** (choose one):
 
-## Structure
+```powershell
+# Windows PowerShell - direct path
+$env:MY_SKILLS_REPO = "C:\path\to\my-skills-v2"
 
-```
-skills-repo/
-├── about.md              # Instruction file (for AI agents)
-├── memory-bank/          # Built-in memory bank
-├── templates/            # Boilerplate for new skills
-├── examples/             # Reference implementations
-└── skills/               # All skills (flat or nested)
-    └── {skill-name}/
-        ├── skill.json    # Required: goal, criteria, features
-        ├── skill.md      # Optional: concise supplementary docs
-        ├── script.*      # Optional: executable
-        └── {sub-skill}/  # Optional: nested sub-skill
+# OR - parent directory (repo name auto-resolved)
+$env:SKILLS_GROUP_DIR = "C:\path\to\skills"
 ```
 
-## skill.json Schema
+```bash
+# macOS/Linux - direct path
+export MY_SKILLS_REPO="/path/to/my-skills-v2"
+
+# OR - parent directory
+export SKILLS_GROUP_DIR="/path/to/skills"
+```
+
+**2. Use a skill** — tell your AI agent:
+
+```
+use-skill/list
+```
+
+```
+use-skill/configure-memory-bank
+```
+
+**3. Create your first skill**:
+
+```bash
+mkdir skills/my-skill
+cp templates/skill.json skills/my-skill/
+# Edit skill.json with your goal, criteria, and features
+```
+
+## What is a Skill?
+
+A skill is a JSON file that describes:
+- **Goal** — what it achieves
+- **Acceptance Criteria** — how to measure success
+- **Features** — testable components with expected results
+
+Each feature follows the **Given-When-Then** pattern for validation.
+
+```json
+{
+  "goal": "Clear objective of what this skill achieves",
+  "acceptance_criteria": [
+    "Measurable success condition 1",
+    "Measurable success condition 2"
+  ],
+  "features": [
+    {
+      "name": "Feature Name",
+      "test_scenario": "Given [condition], When [action], Then [outcome]",
+      "expected_result": "Specific, verifiable outcome",
+      "optional": false
+    }
+  ]
+}
+```
+
+See [examples/hello-world](examples/hello-world) for a complete working example.
+
+## Built-in Skills
+
+### Core Skills
+
+| Skill | Usage | Description |
+|-------|-------|-------------|
+| **use-skill/list** | `use-skill/list` | List all available skills with goals |
+| **use-skill/find** | `use-skill/find {query}` | Search skills by name or keyword |
+| **use-skill/update** | `use-skill/update` | Pull latest changes from git remote |
+| **use-skill/create-repo** | `use-skill/create-repo` | Create new skills repository with V2 structure |
+
+### Memory Bank Skills
+
+| Skill | Usage | Description |
+|-------|-------|-------------|
+| **configure-memory-bank** | `use-skill/configure-memory-bank` | Initialize memory bank structure with all core files |
+| **cleanup-memory-bank** | `use-skill/cleanup-memory-bank` | Maintain memory bank quality (keep core files under 300 words) |
+
+### Development Skills
+
+| Skill | Usage | Description |
+|-------|-------|-------------|
+| **dev/focus-boundary** | `use-skill/dev/focus-boundary` | Control AI autonomy and creative freedom (3 levels) |
+| **dev/std-dev-impl** | `use-skill/dev/std-dev-impl` | Structured 5-phase TDD implementation protocol |
+
+## How It Works
+
+**1. Skill Discovery** — AI agent resolves skill path using `use-skill/{name}`:
+   - Exact match: `skills/{name}/skill.json`
+   - Partial match: `skills/*{name}*/skill.json`
+   - Sub-skills: `skills/{parent}/{name}/skill.json`
+
+**2. Skill Invocation** — Agent reads `skill.json`:
+   - Understands the **goal** and **acceptance criteria**
+   - Executes **required features** (`optional: false`)
+   - Applies **optional features** when referenced or contextually relevant
+   - Validates against **expected results**
+
+**3. Feature Extensions** — Features can reference:
+   - **Scripts** — `ext.script: "script.py"` (execute file)
+   - **Documentation** — `ext.skill_md_ref: "#header"` (consult skill.md)
+   - **Sub-skills** — `ext.subskill: "sub-skill-name"` (delegate to nested skill)
+
+## Repository Structure
+
+```
+my-skills-v2/
+├── README.md                   # This file
+├── about.md                    # AI agent instructions
+├── templates/                  # Boilerplate for new skills
+├── examples/                   # Reference implementations
+├── memory-bank/                # Project context (optional)
+└── skills/                     # Your skills
+    ├── use-skill/              # Core: discovery & invocation
+    ├── configure-memory-bank/  # Initialize memory bank
+    ├── cleanup-memory-bank/    # Maintain memory bank
+    └── dev/                    # Development methodology
+        ├── focus-boundary/
+        └── std-dev-impl/
+```
+
+## Advanced: skill.json Reference
+
+### Full Schema
 
 ```json
 {
@@ -43,7 +151,8 @@ skills-repo/
       "optional": false,
       "ext": {
         "script": "script.py",
-        "skill_md_ref": "#feature-name"
+        "skill_md_ref": "#feature-name",
+        "subskill": "sub-skill-name"
       }
     }
   ]
@@ -52,58 +161,30 @@ skills-repo/
 
 ### Feature Optionality
 
-- **`optional: false`** (default) — Always applies. Core to the skill.
-- **`optional: true`** — Apply only when referenced or contextually relevant.
+| Value | Behavior | Use Case |
+|-------|----------|----------|
+| `optional: false` | Always applies | Core feature required for skill to work |
+| `optional: true` | Applies when referenced or contextually relevant | Conventions, preferences, context-dependent behavior |
 
-This replaces V1's separate `conditions/` (always-apply) and `conventions/` (on-demand) directories.
+### Extension Priority
 
-### Extensions (ext)
+When multiple extensions are defined, the order of precedence is:
+1. **subskill** — Delegates to nested skill (owns feature implementation)
+2. **script** — Executes script file
+3. **skill_md_ref** — Consults documentation section
 
-- `ext.script` — Script file at same level to execute
-- `ext.skill_md_ref` — Header reference in skill.md (e.g. `"#header"` or `"#header/sub"`)
+## Contributing
 
-## Quick Start
-
-```bash
-mkdir skills/my-new-skill
-cp templates/skill.json skills/my-new-skill/
-# Edit skill.json with your goal, criteria, and features
-```
-
-## Environment Variables
-
-```powershell
-$env:MY_SKILLS_REPO = "C:\path\to\skills-repo"
-$env:SKILLS_GROUP_DIR = "C:\path\to\skills"
-```
-
-## Built-in Skills
-
-### use-skill
-Core skill for discovering, resolving, and invoking skills.
-- **use-skill/list** — List all available skills with goals
-- **use-skill/find** — Search skills by name or keyword
-- **use-skill/update** — Pull latest changes from git remote
-- **use-skill/create-repo** — Create new skills repository with V2 structure
-
-### configure-memory-bank
-Initialize and configure memory bank structure with all core files.
-
-### cleanup-memory-bank
-Maintain memory bank quality by keeping core files under 300 words and offloading details to subdirectory.
-
-### dev
-Development methodology and protocol skills.
-- **dev/focus-boundary** — Control AI autonomy and creative freedom (3 levels: full, minimal+constrained, minimal+unrestricted)
-- **dev/std-dev-impl** — Structured 5-phase TDD implementation protocol with user collaboration gates
-
-## Examples
-
-See [examples/hello-world](examples/hello-world) for a complete working example.
+1. Create skill directory: `mkdir skills/your-skill`
+2. Copy template: `cp templates/skill.json skills/your-skill/`
+3. Define goal, criteria, and features
+4. Test with AI agent
+5. Add documentation in `skill.md` (optional)
+6. Add scripts if needed (optional)
 
 ## Resources
 
-- [about.md](about.md) — Full instruction file for AI agents
-- [memory-bank/](memory-bank/) — Project documentation
+- [examples/hello-world](examples/hello-world) — Complete working example
 - [templates/](templates/) — Boilerplate for new skills
-- [examples/](examples/) — Reference implementations
+- [about.md](about.md) — Full instruction file for AI agents
+- [memory-bank/](memory-bank/) — Project documentation and context

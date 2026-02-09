@@ -6,7 +6,12 @@ Define what you want to achieve (goal), how to measure success (acceptance crite
 
 ## Quick Start
 
-**1. Set environment variable** (choose one):
+**1. Configure AI agent** — Copy [about.md](about.md) to your IDE's custom instructions:
+   - **VS Code (GitHub Copilot)**: Settings → GitHub Copilot → Custom Instructions
+   - **Cursor**: Settings → Cursor Settings → Rules for AI
+   - **Cline/Other**: Add as custom instruction or system prompt
+
+**2. Set environment variable** (choose one):
 
 ```powershell
 # Windows PowerShell - direct path
@@ -24,7 +29,7 @@ export MY_SKILLS_REPO="/path/to/my-skills-v2"
 export SKILLS_GROUP_DIR="/path/to/skills"
 ```
 
-**2. Use a skill** — tell your AI agent:
+**3. Use a skill** — tell your AI agent:
 
 ```
 use-skill/list
@@ -34,7 +39,7 @@ use-skill/list
 use-skill/configure-memory-bank
 ```
 
-**3. Create your first skill**:
+**4. Create your first skill**:
 
 ```bash
 mkdir skills/my-skill

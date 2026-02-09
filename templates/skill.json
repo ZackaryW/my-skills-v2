@@ -1,0 +1,26 @@
+{
+  "goal": "Clear, concise statement of what this skill achieves",
+  "acceptance_criteria": [
+    "Measurable condition 1 that defines success",
+    "Measurable condition 2 that defines success",
+    "Measurable condition 3 that defines success"
+  ],
+  "features": [
+    {
+      "name": "Feature Name",
+      "test_scenario": "Given [precondition], When [action], Then [expected outcome]",
+      "expected_result": "Specific, verifiable outcome when this feature works correctly"
+    },
+    {
+      "name": "Optional Feature",
+      "test_scenario": "Given [precondition], When [action], Then [expected outcome]",
+      "expected_result": "Another specific outcome",
+      "optional": true,
+      "ext": {
+        "script": "script.py",
+        "skill_md_ref": "#optional-feature",
+        "subskill": "sub-skill-name"
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "goal": "Maintain memory bank clarity and efficiency by restructuring files and offloading details when core files exceed 300 words",
+  "acceptance_criteria": [
+    "All core memory bank files remain under 300 words each",
+    "Essential context is preserved in core files",
+    "Detailed content is properly offloaded to details/ subdirectory",
+    "One-line mentions with links replace detailed content in core files",
+    "Files use concise, clear language without redundancy",
+    "All links to detail files are functional"
+  ],
+  "features": [
+    {
+      "name": "Analyze Core File Length",
+      "test_scenario": "Given memory bank core files, When I count words in each file, Then I can identify files exceeding 300 words",
+      "expected_result": "List of files that need cleanup with word counts",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#file-analysis"
+      }
+    },
+    {
+      "name": "Identify Content for Offloading",
+      "test_scenario": "Given a core file exceeding 300 words, When I scan for detailed content, Then I identify sections suitable for extraction",
+      "expected_result": "List of sections to offload with appropriate detail file names",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#content-identification"
+      }
+    },
+    {
+      "name": "Create Detail Files",
+      "test_scenario": "Given content to offload, When I create detail files, Then files follow naming convention and are organized properly",
+      "expected_result": "Detail files created in memory-bank/details/ with correct naming: {prefix}_{category}_{name}.md",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#detail-files"
+      }
+    },
+    {
+      "name": "Replace with One-Line Mentions",
+      "test_scenario": "Given detailed content moved to detail file, When I update core file, Then brief one-line mention with link replaces original content",
+      "expected_result": "Core file contains concise mention linking to detail file",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#one-line-mentions"
+      }
+    },
+    {
+      "name": "Apply Concise Writing Style",
+      "test_scenario": "Given verbose text in core files, When I apply cleanup rules, Then content becomes concise without losing meaning",
+      "expected_result": "Bullet points, active voice, no filler words, tables for structured data",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#writing-style"
+      }
+    },
+    {
+      "name": "Remove Redundancy",
+      "test_scenario": "Given duplicate information across files, When I review all files, Then redundant content is consolidated or removed",
+      "expected_result": "No duplicate information, cross-file consistency maintained",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#redundancy"
+      }
+    },
+    {
+      "name": "Validate Cleanup",
+      "test_scenario": "Given cleaned memory bank, When I verify all criteria, Then all core files are under 300 words with functional links",
+      "expected_result": "Validation checklist passes: file size, links, consistency, clarity",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#validation"
+      }
+    }
+  ]
+}

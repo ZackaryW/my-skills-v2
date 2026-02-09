@@ -1,0 +1,57 @@
+{
+  "goal": "Control AI autonomy and creative freedom during development tasks",
+  "acceptance_criteria": [
+    "Agent behavior matches selected focus level",
+    "Assumptions are made or avoided as specified",
+    "File scope follows level constraints",
+    "Extras and proactive additions follow level rules",
+    "Agent stops and asks when appropriate"
+  ],
+  "features": [
+    {
+      "name": "Level 0: Full Autonomy",
+      "test_scenario": "Given focus level 0, When implementing, Then agent makes reasonable assumptions, creates unlimited files, and adds proactive improvements",
+      "expected_result": "Agent works with full creative freedom, adds helpers/abstractions/docs as beneficial",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#level-0-full-autonomy"
+      }
+    },
+    {
+      "name": "Level 1: Minimal + File-Constrained",
+      "test_scenario": "Given focus level 1, When implementing, Then agent makes zero assumptions, creates only minimal requested files, and asks before adding anything",
+      "expected_result": "Agent stops for all clarifications, creates single file when possible, no unrequested patterns",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#level-1-minimal--file-constrained"
+      }
+    },
+    {
+      "name": "Level 2: Minimal + File-Unrestricted",
+      "test_scenario": "Given focus level 2, When implementing, Then agent makes zero assumptions but can create multiple files as needed, no unrequested extras",
+      "expected_result": "Agent asks for all ambiguities, creates necessary structure, avoids abstractions unless requested",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#level-2-minimal--file-unrestricted"
+      }
+    },
+    {
+      "name": "Stop and Ask Conditions",
+      "test_scenario": "Given focus level 1 or 2 and ambiguous request, When conditions trigger, Then agent stops and asks for clarification",
+      "expected_result": "Agent asks when destination unclear, requirements vague, or would add unrequested patterns",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#stop-and-ask-conditions"
+      }
+    },
+    {
+      "name": "Default Balanced Mode",
+      "test_scenario": "Given no focus level specified, When implementing, Then agent uses balanced approach with reasonable assumptions",
+      "expected_result": "Agent makes clear assumptions, standard patterns, asks when truly ambiguous",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#default-no-level-balanced"
+      }
+    }
+  ]
+}

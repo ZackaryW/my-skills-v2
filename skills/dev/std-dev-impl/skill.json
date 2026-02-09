@@ -1,0 +1,121 @@
+{
+  "goal": "Implement features using structured 5-phase TDD protocol with user collaboration gates",
+  "acceptance_criteria": [
+    "All 5 phases are executed in order",
+    "User gates are respected (Clarify and Design phases wait for user confirmation)",
+    "Tests are written before implementation code",
+    "Memory bank is created/updated with project context",
+    "Implementation matches initial requirements or divergence is discussed",
+    "User confirms completion and quality"
+  ],
+  "features": [
+    {
+      "name": "Phase 1: Understand",
+      "test_scenario": "Given new feature request, When I understand context, Then memory bank exists with projectbrief, productContext, systemPatterns, and techContext",
+      "expected_result": "Complete understanding of requirements, technical constraints, and architecture patterns documented",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#phase-1-understand"
+      }
+    },
+    {
+      "name": "Phase 2: Clarify",
+      "test_scenario": "Given understanding of context, When I clarify requirements, Then all ambiguities are resolved with user before proceeding",
+      "expected_result": "User has answered all questions, confirmed requirements, verified TDD is appropriate, details documented in activeContext",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#phase-2-clarify"
+      }
+    },
+    {
+      "name": "Phase 2 Gate: Wait for User",
+      "test_scenario": "Given clarification questions presented, When waiting for user, Then do not proceed to Phase 3 until user confirms understanding",
+      "expected_result": "Agent blocks and waits for explicit user confirmation",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#gate-clarify-to-design"
+      }
+    },
+    {
+      "name": "Phase 3: Design",
+      "test_scenario": "Given confirmed requirements, When I design solution, Then 2-3 approaches are proposed with trade-offs and recommendation",
+      "expected_result": "User sees options (complexity vs maintainability, performance vs readability, short vs long-term) with clear recommendation and rationale",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#phase-3-design"
+      }
+    },
+    {
+      "name": "Phase 3 Gate: Wait for Approval",
+      "test_scenario": "Given design approaches presented, When waiting for user decision, Then do not proceed to Phase 4 until user approves an approach",
+      "expected_result": "Agent blocks and waits for explicit user approval of selected approach",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#gate-design-to-implement"
+      }
+    },
+    {
+      "name": "Phase 4: Implement with TDD",
+      "test_scenario": "Given approved design, When I implement, Then follow TDD cycle: write failing tests → implement minimum code → verify compliance → update progress",
+      "expected_result": "All tests pass, code is minimal and idiomatic, requirements met, progress.md updated per component",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#phase-4-implement"
+      }
+    },
+    {
+      "name": "TDD Cycle: Tests First",
+      "test_scenario": "Given component to implement, When I write tests, Then tests cover happy path, edge cases, and error conditions before any implementation code",
+      "expected_result": "Failing tests exist for component behavior (unit, integration, or composite as appropriate)",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#tdd-cycle"
+      }
+    },
+    {
+      "name": "TDD Cycle: Minimal Implementation",
+      "test_scenario": "Given failing tests, When I implement code, Then write minimum code to pass tests",
+      "expected_result": "Tests pass, code is simple and idiomatic, no over-engineering",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#tdd-cycle"
+      }
+    },
+    {
+      "name": "TDD Cycle: Verify Compliance",
+      "test_scenario": "Given passing tests, When I verify, Then confirm tests pass, requirements met, and code can be refactored for quality",
+      "expected_result": "All tests green, meets acceptance criteria, adheres to systemPatterns, refactored as needed",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#tdd-cycle"
+      }
+    },
+    {
+      "name": "Phase 5: Validate",
+      "test_scenario": "Given completed implementation, When I validate, Then compare to initial requirements and identify any divergences",
+      "expected_result": "Divergences categorized (None/Minor/Major) and handled appropriately with user discussion if needed",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#phase-5-validate"
+      }
+    },
+    {
+      "name": "Handle Divergence",
+      "test_scenario": "Given identified divergence, When handling, Then discuss with user based on severity (None=complete, Minor=discuss acceptance, Major=full discussion/restart)",
+      "expected_result": "User makes informed decision about divergence resolution",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#divergence-handling"
+      }
+    },
+    {
+      "name": "Validation Checklist",
+      "test_scenario": "Given implementation complete, When final validation, Then verify tests pass, matches systemPatterns, no undocumented deviations, memory bank updated, user confirms",
+      "expected_result": "All checklist items confirmed before marking complete",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#validation-checklist"
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "goal": "Update skills repository by pulling latest changes from git remote",
+  "acceptance_criteria": [
+    "Repository path is resolved via environment variables",
+    "Git repository is detected correctly",
+    "Git pull executes successfully",
+    "Changes to about.md are detected and reported",
+    "User is notified when context refresh is needed",
+    "Works on Windows (PowerShell) and Unix/Linux/Mac (bash)"
+  ],
+  "features": [
+    {
+      "name": "Resolve Repository Path",
+      "test_scenario": "Given MY_SKILLS_REPO or SKILLS_GROUP_DIR is set, When I resolve the path, Then correct repository directory is identified",
+      "expected_result": "Repository root directory path is determined and validated",
+      "optional": false,
+      "ext": {
+        "script": "script.ps1",
+        "skill_md_ref": "#path-resolution"
+      }
+    },
+    {
+      "name": "Detect Git Repository",
+      "test_scenario": "Given a directory path, When I check for .git folder, Then I can determine if it's a git repository",
+      "expected_result": "Boolean result indicating if directory is a git repository",
+      "optional": false,
+      "ext": {
+        "script": "script.ps1",
+        "skill_md_ref": "#git-detection"
+      }
+    },
+    {
+      "name": "Pull Updates for Single Repo",
+      "test_scenario": "Given a single git repository, When I run git pull, Then latest changes are fetched and merged",
+      "expected_result": "Repository is updated to latest remote version",
+      "optional": false,
+      "ext": {
+        "script": "script.ps1",
+        "skill_md_ref": "#single-repo-update"
+      }
+    },
+    {
+      "name": "Pull Updates for Skills Group",
+      "test_scenario": "Given a skills group directory, When I iterate subdirectories, Then all git repositories are updated",
+      "expected_result": "All skill repositories in group are updated",
+      "optional": true,
+      "ext": {
+        "script": "script.ps1",
+        "skill_md_ref": "#group-update"
+      }
+    },
+    {
+      "name": "Detect about.md Changes",
+      "test_scenario": "Given about.md before and after pull, When I compare file hashes, Then changes are detected",
+      "expected_result": "User is notified if about.md changed and context refresh is needed",
+      "optional": false,
+      "ext": {
+        "script": "script.ps1",
+        "skill_md_ref": "#context-refresh"
+      }
+    }
+  ]
+}

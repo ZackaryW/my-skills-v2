@@ -1,0 +1,33 @@
+{
+  "goal": "Create a simple greeting skill that demonstrates the V2 structure",
+  "acceptance_criteria": [
+    "Skill can generate a greeting message",
+    "Greeting includes the provided name",
+    "Output format is consistent and correct"
+  ],
+  "features": [
+    {
+      "name": "Basic Greeting",
+      "test_scenario": "Given a name 'Alice', When the skill is invoked, Then output 'Hello, Alice!'",
+      "expected_result": "Console displays 'Hello, Alice!' exactly"
+    },
+    {
+      "name": "Greeting with Time of Day",
+      "test_scenario": "Given a name 'Bob' and current time is morning, When skill is invoked with time option, Then output 'Good morning, Bob!'",
+      "expected_result": "Console displays greeting with appropriate time of day prefix",
+      "ext": {
+        "script": "script.py",
+        "skill_md_ref": "#greeting-with-time-of-day"
+      }
+    },
+    {
+      "name": "Custom Message",
+      "test_scenario": "Given a name 'Charlie' and custom message 'Welcome', When skill is invoked with custom flag, Then output 'Welcome, Charlie!'",
+      "expected_result": "Console displays custom message with name",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#custom-message/usage-examples"
+      }
+    }
+  ]
+}

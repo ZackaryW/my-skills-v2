@@ -1,0 +1,34 @@
+{
+  "goal": "List all available skills in the resolved repo with their goals",
+  "acceptance_criteria": [
+    "All skill directories under skills/ are discovered",
+    "Each skill's goal is extracted from its skill.json",
+    "Filters support --include/--exclude tags and --repo selection",
+    "Nested sub-skills are included with parent/child notation",
+    "Output is concise and scannable"
+  ],
+  "features": [
+    {
+      "name": "Skill Discovery",
+      "test_scenario": "Given a resolved repo with skills/, When use-skill/list is invoked, Then all directories containing skill.json are listed",
+      "expected_result": "Tab-separated list: skill-name → goal (one per line), including nested sub-skills as parent/child",
+      "ext": {
+        "script": "script.py"
+      }
+    },
+    {
+      "name": "Filtering",
+      "test_scenario": "Given include/exclude tags and a repo filter, When use-skill/list is invoked, Then results are filtered by tags and repo selection",
+      "expected_result": "Only matching skills are listed based on --include/--exclude and --repo",
+      "ext": {
+        "script": "script.py"
+      }
+    },
+    {
+      "name": "Nested Skill Listing",
+      "test_scenario": "Given a skill with sub-skill directories, When listing skills, Then sub-skills appear indented under their parent",
+      "expected_result": "Output shows parent skill, then indented sub-skills (e.g., use-skill → use-skill/list, use-skill/find)",
+      "optional": true
+    }
+  ]
+}

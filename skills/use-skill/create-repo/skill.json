@@ -1,0 +1,76 @@
+{
+  "goal": "Create a new goal-driven skills repository with standard V2 structure",
+  "acceptance_criteria": [
+    "Repository directory is created at specified path",
+    "Core files (about.md, README.md) are generated",
+    "Memory bank structure is initialized",
+    "Templates directory is created with boilerplate files",
+    "Environment variable documentation is included",
+    "Repository is ready for skill development"
+  ],
+  "features": [
+    {
+      "name": "Validate Repository Parameters",
+      "test_scenario": "Given repository name and path, When I validate inputs, Then parameters are valid and path is available",
+      "expected_result": "Repository name is kebab-case, path exists or can be created, no conflicts",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#validation"
+      }
+    },
+    {
+      "name": "Create Directory Structure",
+      "test_scenario": "Given valid path, When I create structure, Then all directories are created (memory-bank, templates, skills, examples)",
+      "expected_result": "Complete directory structure matching V2 pattern",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#structure"
+      }
+    },
+    {
+      "name": "Generate about.md",
+      "test_scenario": "Given repository metadata, When I generate about.md, Then file contains proper instructions and env var configuration",
+      "expected_result": "about.md with frontmatter, path resolution, structure overview, skill schema",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#about-file"
+      }
+    },
+    {
+      "name": "Generate README.md",
+      "test_scenario": "Given repository metadata, When I generate README, Then file provides clear quick start guide",
+      "expected_result": "README with concept, structure, schema, quick start, env vars",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#readme-file"
+      }
+    },
+    {
+      "name": "Initialize Memory Bank",
+      "test_scenario": "Given new repository, When I initialize memory bank, Then all 6 core files are created with appropriate structure",
+      "expected_result": "Memory bank with projectbrief, productContext, systemPatterns, techContext, activeContext, progress",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#memory-bank"
+      }
+    },
+    {
+      "name": "Create Templates",
+      "test_scenario": "Given template structure, When I create boilerplate files, Then templates are available for new skills",
+      "expected_result": "Templates directory with skill.json, skill.md, script examples",
+      "optional": false,
+      "ext": {
+        "skill_md_ref": "#templates"
+      }
+    },
+    {
+      "name": "Create Example Skill",
+      "test_scenario": "Given examples directory, When I create hello-world example, Then reference implementation exists",
+      "expected_result": "Working hello-world example skill with all components",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#examples"
+      }
+    }
+  ]
+}

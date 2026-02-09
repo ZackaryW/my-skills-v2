@@ -1,0 +1,29 @@
+{
+  "goal": "Organize and provide access to development methodology and protocol skills",
+  "acceptance_criteria": [
+    "Development sub-skills are organized under dev parent",
+    "Focus boundary control is available via dev/focus-boundary",
+    "TDD implementation protocol is available via dev/std-dev-impl",
+    "Developers can discover and invoke development best practices"
+  ],
+  "features": [
+    {
+      "name": "Focus Boundary Control",
+      "test_scenario": "Given need to control AI autonomy, When I invoke dev/focus-boundary, Then agent applies appropriate creativity and scope limits",
+      "expected_result": "AI behavior matches selected focus level (0=full, 1=minimal+constrained, 2=minimal+unrestricted)",
+      "optional": false,
+      "ext": {
+        "subskill": "focus-boundary"
+      }
+    },
+    {
+      "name": "Structured TDD Implementation",
+      "test_scenario": "Given feature to implement, When I invoke dev/std-dev-impl, Then agent follows 5-phase protocol with user collaboration gates",
+      "expected_result": "Feature implemented using Understand→Clarify→Design→Implement→Validate workflow",
+      "optional": false,
+      "ext": {
+        "subskill": "std-dev-impl"
+      }
+    }
+  ]
+}

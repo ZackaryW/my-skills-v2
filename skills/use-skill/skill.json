@@ -1,0 +1,41 @@
+{
+  "goal": "Serve as the core entry point for discovering, resolving, and invoking skills from the skills repo",
+  "acceptance_criteria": [
+    "User can invoke any skill via use-skill/{skill-name} and the system resolves it to the correct skill directory",
+    "Repo path is resolved automatically via environment variables before skill lookup",
+    "Sub-skills list and find are available for skill discovery",
+    "Reserved skill — only available in core skills repo (my-skills-v2)"
+  ],
+  "features": [
+    {
+      "name": "Repo Resolution",
+      "test_scenario": "Given env var MY_SKILLS_REPO or SKILLS_GROUP_DIR is set, When user invokes use-skill/{name}, Then the system resolves the repo root before searching for the skill",
+      "expected_result": "Repo root is determined from $MY_SKILLS_REPO or $SKILLS_GROUP_DIR/my-skills-v2; fails explicitly if neither is set"
+    },
+    {
+      "name": "Skill Resolution",
+      "test_scenario": "Given repo root is resolved and user invokes use-skill/memory-bank, When the system searches skills/, Then it matches the skill by name or partial name (e.g., 'memory-bank' matches 'configure-memory-bank')",
+      "expected_result": "Correct skill directory is found; skill.json is read and execution proceeds per invocation protocol",
+      "ext": {
+        "skill_md_ref": "#skill-resolution"
+      }
+    },
+    {
+      "name": "Sub-Skill Routing",
+      "test_scenario": "Given user invokes use-skill/list or use-skill/find, When the system checks for sub-skill match, Then it routes to the sub-skill instead of searching skills/",
+      "expected_result": "Sub-skill names (list, find) take priority over skill search; sub-skill's skill.json is executed",
+      "ext": {
+        "skill_md_ref": "#routing-priority",
+        "subskill": "list"
+      }
+    },
+    {
+      "name": "Invocation Protocol",
+      "test_scenario": "Given a skill is resolved, When execution begins, Then the system reads skill.json, executes required features, checks optional features, runs ext references, and validates results",
+      "expected_result": "Full invocation lifecycle completes: read → execute required → check optional → ext → validate",
+      "ext": {
+        "skill_md_ref": "#invocation-protocol"
+      }
+    }
+  ]
+}

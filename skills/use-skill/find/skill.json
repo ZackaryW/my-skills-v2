@@ -1,0 +1,24 @@
+{
+  "goal": "Search for a skill by keyword or partial name across the repo",
+  "acceptance_criteria": [
+    "Search matches against skill directory names and skill.json goal fields",
+    "Partial matches are supported (e.g., 'memory' finds 'configure-memory-bank')",
+    "Results include skill name and goal for quick identification"
+  ],
+  "features": [
+    {
+      "name": "Name Search",
+      "test_scenario": "Given query 'memory', When use-skill/find is invoked, Then skills with 'memory' in directory name are returned",
+      "expected_result": "configure-memory-bank is listed with its goal",
+      "ext": {
+        "script": "script.py"
+      }
+    },
+    {
+      "name": "Goal Search",
+      "test_scenario": "Given query 'greeting', When use-skill/find is invoked, Then skills with 'greeting' in their goal field are returned",
+      "expected_result": "hello-world example is listed (goal contains 'greeting')",
+      "optional": true
+    }
+  ]
+}

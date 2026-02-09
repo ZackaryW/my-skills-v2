@@ -1,0 +1,53 @@
+{
+  "goal": "Provide detailed, actionable instructions for initializing, structuring, and maintaining a memory bank in any project",
+  "acceptance_criteria": [
+    "Agent can initialize a complete memory bank from scratch with all 6 core files",
+    "Each core file has clear content guidelines and expected structure",
+    "Detail offloading rules are unambiguous with naming conventions and triggers",
+    "Scope configuration is well-defined with concrete examples",
+    "Update protocol covers when, what, and how to update"
+  ],
+  "features": [
+    {
+      "name": "Initialize Memory Bank",
+      "test_scenario": "Given a project with no memory-bank/ directory, When the agent is asked to initialize the memory bank, Then all 6 core files are created with correct structure and seed content derived from project context",
+      "expected_result": "memory-bank/ directory exists with projectbrief.md, productContext.md, systemPatterns.md, techContext.md, activeContext.md, progress.md — each populated with structured sections, not empty placeholders",
+      "ext": {
+        "skill_md_ref": "#initialization-protocol"
+      }
+    },
+    {
+      "name": "Core File Content Guidelines",
+      "test_scenario": "Given an initialized memory bank, When the agent reads any core file, Then the file follows the prescribed section structure and stays within size limits",
+      "expected_result": "Each core file contains only its designated content types, uses bullet/table format over prose, and stays under ~300 words before triggering offload",
+      "ext": {
+        "skill_md_ref": "#core-file-specifications"
+      }
+    },
+    {
+      "name": "Detail Offloading",
+      "test_scenario": "Given a core file exceeding ~300 words, When the agent updates the memory bank, Then excess content is extracted to details/ with proper naming and a one-line reference remains in the core file",
+      "expected_result": "Detail file created at details/{prefix}_{category}_{name}.md with full content; core file has one-line summary linking to it",
+      "ext": {
+        "skill_md_ref": "#detail-offloading"
+      }
+    },
+    {
+      "name": "Chained Memory Banks",
+      "test_scenario": "Given a monorepo with a root memory-bank/ and a package needing its own, When the agent initializes a child memory bank, Then a _chain.md is created pointing to the parent and scope resolution follows root-to-child order",
+      "expected_result": "_chain.md contains relative path to parent; agent reads root memory bank first, then child, with child overriding on conflicts",
+      "optional": true,
+      "ext": {
+        "skill_md_ref": "#chained-memory-banks"
+      }
+    },
+    {
+      "name": "Update Protocol",
+      "test_scenario": "Given an active project with existing memory bank, When the agent completes a significant change, Then activeContext.md and progress.md are updated, and other files are reviewed for relevance",
+      "expected_result": "activeContext.md reflects current focus and recent changes; progress.md tracks status; stale content is removed or offloaded; no file exceeds ~300 words",
+      "ext": {
+        "skill_md_ref": "#update-protocol"
+      }
+    }
+  ]
+}

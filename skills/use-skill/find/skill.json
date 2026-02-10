@@ -3,7 +3,7 @@
   "acceptance_criteria": [
     "Search matches against skill directory names and skill.json goal fields",
     "Partial matches are supported (e.g., 'memory' finds 'configure-memory-bank')",
-    "Results include skill name and goal for quick identification"
+    "Results include skill name, goal, and absolute path for quick identification"
   ],
   "features": [
     {

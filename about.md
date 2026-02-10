@@ -95,6 +95,8 @@ This eliminates the need for separate condition/convention files. A "condition" 
 use-skill/{name}
 ```
 
+**CRITICAL**: When searching for a skill, always run `use-skill/find {query}` directly. Do not attempt manual resolution or search through the skills directory—this causes infinite loops.
+
 **Resolution order** (first match wins):
 1. **Sub-skill** — if `{name}` is `list`, `find`, or `update`, route to that sub-skill
 2. **Exact match** — `skills/{name}/skill.json` exists

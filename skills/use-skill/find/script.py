@@ -97,14 +97,15 @@ def main():
     for display, rel_display, skill_json_path in iter_skill_entries(repo_root):
         goal = load_goal(skill_json_path)
         if is_match(query, display, rel_display, goal):
-            matches.append((display, goal))
+            skill_dir = os.path.dirname(skill_json_path)
+            matches.append((display, goal, skill_dir))
 
     if not matches:
         print(f"No matches for '{query}'.")
         return 0
 
-    for display, goal in sorted(matches, key=lambda item: item[0].lower()):
-        print(f"{display}\t{goal}")
+    for display, goal, skill_dir in sorted(matches, key=lambda item: item[0].lower()):
+        print(f"{display}\t{goal}\t{skill_dir}")
 
     return 0
 
